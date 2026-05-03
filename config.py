@@ -8,6 +8,8 @@ class Settings(BaseSettings):
     )
     openai_api_key: str
     gemini_api_key: str
+    mongo_uri: str
+    mongo_db: str
 
 
 settings = Settings()

@@ -1,19 +1,20 @@
 from fastapi import FastAPI
 import uvicorn
 from config import settings
-from logging import getLogger
-
-logger = getLogger(__name__)
+from app.api.routes.userRoute import router as user_router
+from app.api.routes.bloodRequestRoute import router as blood_request_router
+from app.core.exception_handler import global_exception_handler
+from app.database.models.connection import init_db
+import app.core.logging
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    logger.info(f"OpenAI API Key: {settings.openai_api_key}")
-    return {"Hello": settings.openai_api_key}
+init_db()
+
+app.include_router(user_router)
+app.include_router(blood_request_router)
+app.add_exception_handler(Exception, global_exception_handler)
 
 
 if __name__ == "__main__":
-    logger.info(f"OpenAI API Key: {settings.openai_api_key}")
-    logger.info(f"Gemini API Key: {settings.gemini_api_key}")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+        uvicorn.run(app, host="0.0.0.0", port=8000)
