@@ -11,7 +11,10 @@ class AppException(Exception):
         self.status_code = status_code
         self.error_code = error_code
 
-
+class NotificationProvider(AppException):
+    def __init__(self, message="Validation failed"):
+        super().__init__(message, 400, "VALIDATION_ERROR")
+        
 class ValidationException(AppException):
     def __init__(self, message="Validation failed"):
         super().__init__(message, 400, "VALIDATION_ERROR")

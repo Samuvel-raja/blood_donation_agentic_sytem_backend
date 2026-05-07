@@ -10,6 +10,13 @@ class Settings(BaseSettings):
     gemini_api_key: str
     mongo_uri: str
     mongo_db: str
+    whatsapp_token: str
+    whatsapp_phone_number_id: str
+    whatsapp_uri: str
+    email_user: str
+    email_pass: str
+    smtp_host: str
+    smtp_port: int
 
 
 settings = Settings()
