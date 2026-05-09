@@ -1,35 +1,22 @@
-import aiosmtplib
 from config import settings
-from email.message import EmailMessage
-from app.services.templates import render_email
+from app.tools.templateTool import render_email
+from app.tools.mailgunTool import mailgun_send_email
 
 class EmailService:
     def __init__(self):
-        self.smtp_host = settings.smtp_host
-        self.smtp_port = settings.smtp_port
-        self.email_user = settings.email_user
-        self.email_password = settings.email_pass
-    
-    async def send_email_otp(self,to_email:str,subject:str,otp:str):
+        self.mailgun_api_key = settings.mailgun_api_key
+        self.mailgun_domain = settings.mailgun_domain
+        self.mailgun_base_url = settings.mailgun_base_url
+
+    async def send_email_otp(self, to_email: str, otp: str):
         content = render_email("otp", {"otp": otp})
-        await self.send_email(to_email, subject, content)
+        await self.send_email(to_email, content["subject"], content["html"])
 
-    async def send_email_blood_alert(self,to_email:str,blood_group:str,hospital:str,subject:str):
+
+    async def send_email_blood_alert(self, to_email: str, blood_group: str, hospital: str):
         content = render_email("blood_alert", {"blood_group": blood_group, "hospital": hospital})
-        await self.send_email(to_email, subject, content)
-    
-    async def send_email(self, to_email:str,subject:str,content:str):
-        msg = EmailMessage()
-        msg['From']=self.email_user
-        msg['To']=to_email
-        msg["Subject"]=subject
-        msg.set_content(content)
+        await self.send_email(to_email, content["subject"], content["html"])
 
-        await aiosmtplib.send(
-            msg,
-            hostname=self.smtp_host,
-            port=self.smtp_port,
-            username=self.email_user,
-            password=self.email_password,
-            use_tls=True
-        )
+
+    async def send_email(self, to_email: str, subject: str, html: str):
+        return await mailgun_send_email(to_email, subject, html)

@@ -1,8 +1,12 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=BASE_DIR / ".env",
         extra="ignore",
         env_ignore_empty=True,
     )
@@ -17,6 +21,12 @@ class Settings(BaseSettings):
     email_pass: str
     smtp_host: str
     smtp_port: int
+    resend_api_key: str
+    mailgun_api_key: str
+    mailgun_domain: str
+    mailgun_base_url: str
+    google_maps_api_key: str
+    google_maps_places_url: str
 
 
 settings = Settings()

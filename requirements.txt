@@ -13,3 +13,5 @@ pydantic-settings
 mongoengine
 aiosmtplib
 httpx
+resend
+python-multipart

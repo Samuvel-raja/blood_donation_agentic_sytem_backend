@@ -19,5 +19,7 @@ dependencies = [
     "pydantic>=2.0",
     "pydantic-settings>=2.14.0",
     "python-dotenv>=1.2.2",
+    "python-multipart>=0.0.27",
+    "resend>=2.30.0",
     "uvicorn>=0.46.0",
 ]

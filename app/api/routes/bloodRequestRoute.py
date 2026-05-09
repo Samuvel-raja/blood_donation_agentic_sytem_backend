@@ -6,7 +6,7 @@ router = APIRouter()
 controller = BloodRequestController()
 
 @router.post("/blood-request")
-def create_blood_request(request_data: dict):
+async def create_blood_request(request_data: dict):
     initial_state = {
         "request_id": "",
 
@@ -18,6 +18,8 @@ def create_blood_request(request_data: dict):
 
         "accepted_donor": None,
 
+        "hospital_verification_data": {},
+
         "current_batch": 0,
         "max_batches": 0,
 
@@ -26,5 +28,5 @@ def create_blood_request(request_data: dict):
     state = initial_state
     state["request_data"] = request_data
    
-    result = graph.invoke(state)
+    result = await graph.ainvoke(state)
     return result

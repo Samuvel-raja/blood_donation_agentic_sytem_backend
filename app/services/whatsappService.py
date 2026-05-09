@@ -1,7 +1,7 @@
 import httpx
 from config import settings
-from core.exceptions import NotificationProvider
-from app.services.templates import render_whatsapp_params
+from app.core.exceptions import NotificationProvider
+from app.tools.templateTool import render_whatsapp_params
 
 class WhatsappService:
     def __init__(self):
