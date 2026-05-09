@@ -5,7 +5,7 @@ from logging.handlers import RotatingFileHandler
 LOGS_DIR = "logs"
 os.makedirs(LOGS_DIR, exist_ok=True)
 
-LOG_FILE_PATH = os.path.join(LOGS_DIR, "app.log")
+LOG_FILE_PATH = os.path.join(LOGS_DIR, "tmp.log")
 
 class SafeFormatter(logging.Formatter):
     def format(self, record):
